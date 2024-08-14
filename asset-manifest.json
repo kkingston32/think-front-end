@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/think-front-end/static/css/main.33a389d1.css",
+    "main.js": "/think-front-end/static/js/main.26ade665.js",
+    "static/js/453.2c303c3f.chunk.js": "/think-front-end/static/js/453.2c303c3f.chunk.js",
+    "index.html": "/think-front-end/index.html",
+    "main.33a389d1.css.map": "/think-front-end/static/css/main.33a389d1.css.map",
+    "main.26ade665.js.map": "/think-front-end/static/js/main.26ade665.js.map",
+    "453.2c303c3f.chunk.js.map": "/think-front-end/static/js/453.2c303c3f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33a389d1.css",
+    "static/js/main.26ade665.js"
+  ]
+}
