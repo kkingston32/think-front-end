@@ -49,6 +49,7 @@
     "gh-pages": "^6.1.1",
     "image-webpack-loader": "^8.1.0",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "homepage": "https://kkingston32.github.io/think-front-end"
 
 }
