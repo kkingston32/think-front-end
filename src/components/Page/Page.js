@@ -37,8 +37,8 @@ const Page = () => {
     }
 
     return (
-        <div>
-            <Nav />
+        <div className='main-container'>
+            <div className="nav"><Nav /></div>
             <div className="page-details-container">
 
                 <div className="page-details-content">

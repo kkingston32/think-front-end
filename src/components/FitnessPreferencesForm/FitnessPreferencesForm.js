@@ -139,8 +139,8 @@ const FitnessPreferencesForm = () => {
     };
 
     return (
-        <div>
-            <Nav />
+        <div className='main-container'>
+            <div className="nav"><Nav /></div>
 
             <div className='pref-detail-box'>
                 <div className='form-box'>

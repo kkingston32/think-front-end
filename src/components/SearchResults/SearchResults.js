@@ -52,9 +52,9 @@ const SearchResults = () => {
     };
 
     return (
-        <div>
-            <Nav />
-            <div>
+        <div className='main-container'>
+            <div className="nav"><Nav /></div>
+            <div className='search-results'>
                 <h1>Search Results</h1>
                 {loading && <div className="loading-screen">
                     <div className="spinner"></div>

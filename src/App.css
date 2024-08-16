@@ -635,3 +635,14 @@ nav.navbar.bg-primary {
   margin-bottom: 5px;
   font-weight: 600;
 }
+
+
+.main-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
