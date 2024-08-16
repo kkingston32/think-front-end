@@ -36,9 +36,9 @@ const FitnessPreferencesForm = () => {
             },
             credentials: 'include'
         };
-    
+
         const url = "http://localhost:3232/update/" + userId;
-    
+
         fetch(url, fetchOptions)
             .then(response => response.json())
             .then(data => {
@@ -66,7 +66,7 @@ const FitnessPreferencesForm = () => {
             })
             .catch(error => console.error("Error fetching data: ", error));
     }, [userId]);
-    
+
     const deleteUser = () => {
         navigate("/delete/" + userId);
     };
@@ -140,280 +140,305 @@ const FitnessPreferencesForm = () => {
 
     return (
         <div>
-            <div className='user-detail-box'>
-                <div className='pref-form'>
+            <Nav />
+
+            <div className='pref-detail-box'>
+                <div className='form-box'>
                     <form onSubmit={handleSubmit}>
-                        <h3>{profile?.firstName} {profile?.lastName}</h3>
-                        <div>
-                            <label htmlFor="firstName" className="form-label mt-4">First Name: </label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                value={formData.firstName}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="lastName" className="form-label mt-4">Last Name: </label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                value={formData.lastName}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="location" className="form-label mt-4">Location: </label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                id="location"
-                                name="location"
-                                value={formData.location}
-                                onChange={handleInputChange}
-                            />
+                        <div className='contact'>
+                            <h3>{profile?.firstName} {profile?.lastName}</h3>
+                            <div>
+                                <label htmlFor="firstName" className="form-label mt-4">First Name: </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    value={formData.firstName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="lastName" className="form-label mt-4">Last Name: </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    value={formData.lastName}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="location" className="form-label mt-4">Location: </label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    value={formData.location}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <br />
                         </div>
                         {/* Exercise Type */}
-                        <div>
-                            <h2 className="title">Exercise Type</h2>
-                            <div className="option-box" style={{ justifyContent: 'space-between' }}>
-                                {['Cardio', 'Strength Training', 'Flexibility and Balance', 'Endurance', 'Sports and Activities', 'Group Workouts'].map((category) => (
-                                    <div className="card border-primary mb-3" style={{ width: '18rem', height: '32rem', textAlign: 'left' }} key={category}>
-                                        <h5 className="card-header">{category}</h5>
-                                        <div className="d-flex flex-column card-body">
-                                            {category === 'Cardio' && ['Running', 'Cycling', 'Swimming', 'Rowing', 'JumpRope', 'HIIT', 'Dancing', 'Elliptical', 'Hiking', 'Kickboxing'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`cardio-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`cardio-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            {category === 'Strength Training' && ['Weightlifting', 'BodyweightExercises', 'ResistanceBandTraining', 'Powerlifting', 'OlympicLifting', 'CrossFit', 'KettlebellWorkouts', 'CircuitTraining', 'StrongmanTraining', 'Calisthenics'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`strength-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`strength-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            {category === 'Flexibility and Balance' && ['Yoga', 'Pilates', 'StretchingRoutines', 'TaiChi', 'BalanceExercises', 'Barre', 'FoamRolling', 'Dance-basedWorkouts', 'Gymnastics', 'MobilityDrills'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`flexibility-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`flexibility-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            {category === 'Endurance' && ['Long-distanceRunning', 'Hiking', 'Triathlons', 'Marathons', 'CyclingTours', 'TrailRunning', 'OpenWaterSwimming', 'UltraMarathons', 'RowingRaces', 'EnduranceChallenges'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`endurance-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`endurance-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            {category === 'Sports and Activities' && ['Basketball', 'Soccer', 'Tennis', 'Golf', 'MartialArts', 'RockClimbing'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`sports-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`sports-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                            {category === 'Group Workouts' && ['YogaClasses', 'PilatesClasses', 'CrossFitClasses', 'MartialArtsClasses', 'Zumba'].map((type) => (
-                                                <div className="form-check m-2" key={type}>
-                                                    <input
-                                                        type="checkbox"
-                                                        className="form-check-input"
-                                                        name="exerciseType"
-                                                        value={type}
-                                                        checked={preferences.exerciseType.includes(type)}
-                                                        onChange={handleChange}
-                                                        id={`group-${type}`}
-                                                    />
-                                                    <label className="form-check-label" htmlFor={`group-${type}`}>
-                                                        {type}
-                                                    </label>
-                                                </div>
-                                            ))}
+                        <div className='pref-form '>
+                            <div className='activity-pref'>
+
+                                <h2 className="title">Exercise Type</h2>
+                                <div className="pref-grid-container" >
+
+                                    {['Cardio', 'Strength Training', 'Flexibility and Balance', 'Endurance', 'Sports and Activities', 'Group Workouts'].map((category) => (
+                                        <div className="card border-primary mb-3" style={{ width: '18rem', height: '32rem', textAlign: 'left' }} key={category}>
+                                            <h5 className="card-header">{category}</h5>
+                                            <div className="d-flex flex-column card-body">
+                                                {category === 'Cardio' && ['Running', 'Cycling', 'Swimming', 'Rowing', 'JumpRope', 'HIIT', 'Dancing', 'Elliptical', 'Hiking', 'Kickboxing'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`cardio-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`cardio-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                                {category === 'Strength Training' && ['Weightlifting', 'BodyweightExercises', 'ResistanceBandTraining', 'Powerlifting', 'OlympicLifting', 'CrossFit', 'KettlebellWorkouts', 'CircuitTraining', 'StrongmanTraining', 'Calisthenics'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`strength-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`strength-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                                {category === 'Flexibility and Balance' && ['Yoga', 'Pilates', 'StretchingRoutines', 'TaiChi', 'BalanceExercises', 'Barre', 'FoamRolling', 'Dance-basedWorkouts', 'Gymnastics', 'MobilityDrills'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`flexibility-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`flexibility-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                                {category === 'Endurance' && ['Long-distanceRunning', 'Hiking', 'Triathlons', 'Marathons', 'CyclingTours', 'TrailRunning', 'OpenWaterSwimming', 'UltraMarathons', 'RowingRaces', 'EnduranceChallenges'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`endurance-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`endurance-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                                {category === 'Sports and Activities' && ['Basketball', 'Soccer', 'Tennis', 'Golf', 'MartialArts', 'RockClimbing'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`sports-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`sports-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                                {category === 'Group Workouts' && ['YogaClasses', 'PilatesClasses', 'CrossFitClasses', 'MartialArtsClasses', 'Zumba'].map((type) => (
+                                                    <div className="grid-item pref-card form-check m-2" key={type}>
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            name="exerciseType"
+                                                            value={type}
+                                                            checked={preferences.exerciseType.includes(type)}
+                                                            onChange={handleChange}
+                                                            id={`group-${type}`}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`group-${type}`}>
+                                                            {type}
+                                                        </label>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+
                             </div>
-                        </div>
-                        {/* Workout Environment */}
-                        <div>
-                            <h2 className="title">Workout Environment</h2>
-                            {['Gym', 'Home', 'Outdoor', 'Studio', 'Sports facilities', 'Mixed environments', 'Virtual'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="workoutEnvironment"
-                                        value={type}
-                                        checked={preferences.workoutEnvironment.includes(type)}
-                                        onChange={handleChange}
-                                        id={`workoutEnvironment-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`workoutEnvironment-${type}`}>
-                                        {type}
-                                    </label>
+
+
+                            {/* Workout Environment */}
+                            <div className='other-pref'>
+
+                                <div className='pref-grid-container'>
+                                    <div>
+                                        <h2 className="title">Workout Environment</h2>
+                                        {['Gym', 'Home', 'Outdoor', 'Studio', 'Sports facilities', 'Mixed environments', 'Virtual'].map((type) => (
+                                            <div className="grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="workoutEnvironment"
+                                                    value={type}
+                                                    checked={preferences.workoutEnvironment.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`workoutEnvironment-${type}`}
+                                                />
+                                                <label className="form-check-label" htmlFor={`workoutEnvironment-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Intensity Level */}
+                                    <div>
+                                        <h2 className="title">Intensity Level</h2>
+                                        {['Low', 'Moderate', 'High'].map((type) => (
+                                            <div className=" grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="intensityLevel"
+                                                    value={type}
+                                                    checked={preferences.intensityLevel.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`intensityLevel-${type}`}
+                                                />
+                                                <label className="grid-item form-check-label" htmlFor={`intensityLevel-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Duration */}
+                                    <div>
+                                        <h2 className="title">Duration</h2>
+                                        {['Under 30 minutes', '30-60 minutes', '1-2 hours', 'Over 2 hours'].map((type) => (
+                                            <div className="grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="duration"
+                                                    value={type}
+                                                    checked={preferences.duration.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`duration-${type}`}
+                                                />
+                                                <label className="form-check-label" htmlFor={`duration-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Time of Day */}
+                                    <div>
+                                        <h2 className="title">Time of Day</h2>
+                                        {['Morning', 'Afternoon', 'Evening', 'Anytime'].map((type) => (
+                                            <div className="grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="timeOfDay"
+                                                    value={type}
+                                                    checked={preferences.timeOfDay.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`timeOfDay-${type}`}
+                                                />
+                                                <label className="form-check-label" htmlFor={`timeOfDay-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Goals */}
+                                    <div>
+                                        <h2 className="title">Goals</h2>
+                                        {['Weight loss', 'Muscle gain', 'Improving endurance', 'Flexibility', 'General fitness', 'Mental well-being', 'Sport-specific training', 'Rehabilitation', 'Social interaction', 'Skill development'].map((type) => (
+                                            <div className="grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="goals"
+                                                    value={type}
+                                                    checked={preferences.goals.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`goals-${type}`}
+                                                />
+                                                <label className="form-check-label" htmlFor={`goals-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Equipment */}
+                                    <div>
+                                        <h2 className="title">Equipment</h2>
+                                        {['Free weights', 'Resistance bands', 'Cardio machines', 'Bodyweight', 'Yoga mats', 'Kettlebells', 'Medicine balls', 'TRX', 'Machines', 'No equipment'].map((type) => (
+                                            <div className="grid-item form-check" key={type}>
+                                                <input
+                                                    type="checkbox"
+                                                    className="form-check-input"
+                                                    name="equipment"
+                                                    value={type}
+                                                    checked={preferences.equipment.includes(type)}
+                                                    onChange={handleChange}
+                                                    id={`equipment-${type}`}
+                                                />
+                                                <label className="form-check-label" htmlFor={`equipment-${type}`}>
+                                                    {type}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                        {/* Intensity Level */}
-                        <div>
-                            <h2 className="title">Intensity Level</h2>
-                            {['Low', 'Moderate', 'High'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="intensityLevel"
-                                        value={type}
-                                        checked={preferences.intensityLevel.includes(type)}
-                                        onChange={handleChange}
-                                        id={`intensityLevel-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`intensityLevel-${type}`}>
-                                        {type}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                        {/* Duration */}
-                        <div>
-                            <h2 className="title">Duration</h2>
-                            {['Under 30 minutes', '30-60 minutes', '1-2 hours', 'Over 2 hours'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="duration"
-                                        value={type}
-                                        checked={preferences.duration.includes(type)}
-                                        onChange={handleChange}
-                                        id={`duration-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`duration-${type}`}>
-                                        {type}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                        {/* Time of Day */}
-                        <div>
-                            <h2 className="title">Time of Day</h2>
-                            {['Morning', 'Afternoon', 'Evening', 'Anytime'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="timeOfDay"
-                                        value={type}
-                                        checked={preferences.timeOfDay.includes(type)}
-                                        onChange={handleChange}
-                                        id={`timeOfDay-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`timeOfDay-${type}`}>
-                                        {type}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                        {/* Goals */}
-                        <div>
-                            <h2 className="title">Goals</h2>
-                            {['Weight loss', 'Muscle gain', 'Improving endurance', 'Flexibility', 'General fitness', 'Mental well-being', 'Sport-specific training', 'Rehabilitation', 'Social interaction', 'Skill development'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="goals"
-                                        value={type}
-                                        checked={preferences.goals.includes(type)}
-                                        onChange={handleChange}
-                                        id={`goals-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`goals-${type}`}>
-                                        {type}
-                                    </label>
-                                </div>
-                            ))}
-                        </div>
-                        {/* Equipment */}
-                        <div>
-                            <h2 className="title">Equipment</h2>
-                            {['Free weights', 'Resistance bands', 'Cardio machines', 'Bodyweight', 'Yoga mats', 'Kettlebells', 'Medicine balls', 'TRX', 'Machines', 'No equipment'].map((type) => (
-                                <div className="form-check" key={type}>
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        name="equipment"
-                                        value={type}
-                                        checked={preferences.equipment.includes(type)}
-                                        onChange={handleChange}
-                                        id={`equipment-${type}`}
-                                    />
-                                    <label className="form-check-label" htmlFor={`equipment-${type}`}>
-                                        {type}
-                                    </label>
-                                </div>
-                            ))}
+
+                            </div>
+
+
                         </div>
                         <div>
                             <button type="submit">Submit</button>
                             <button type="button" onClick={deleteUser}>Delete Profile</button>
                         </div>
                     </form>
+
                 </div>
             </div>
+
         </div>
+
+
+
     );
 };
 

@@ -340,14 +340,7 @@ form#image-form input[type="submit"]:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.preferences {
-  padding: 10px;
-  background-color: #f0f0f0; /* Match background color */
-  border-radius: 10px;; /* Match rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Match shadow */
-  max-height: 300px; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
-}
+
 
 .preferences-container {
   border-radius: 10px;;
@@ -542,4 +535,103 @@ nav.navbar.bg-primary {
 }
 .feed{
   margin-top: 15px;
+}
+
+.pref-detail-box {
+  margin: 50px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; 
+}
+
+.pref-form{
+  justify-content: center;
+}
+
+.pref-grid-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking up equal space */
+  gap: 20px;
+  
+}
+
+.contact{
+  width: 100%;
+}
+
+
+
+
+.page-details-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.page-details-content {
+  max-width: 800px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.preview-image {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.page-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.page-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  border: solid black 1px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.page-metrics p {
+  margin: 5px 0;
+}
+
+.page-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.page-details-grid div {
+  background: #fafafa;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.page-details-grid div strong {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
 }

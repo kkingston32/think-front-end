@@ -32,36 +32,47 @@ const Page = () => {
 
     if (!pageDetails) {
         return <div className="loading-screen">
-        <div className="spinner"></div>
-    </div>;;;
+            <div className="spinner"></div>
+        </div>;;;
     }
 
     return (
         <div>
             <Nav />
-            <div>
-                <div className="image-container">
-                <img className='preview-image' src={pageDetails?.ImgUrl}></img>
+            <div className="page-details-container">
+
+                <div className="page-details-content">
+                    <div className="image-container">
+                        <img className="preview-image" src={pageDetails?.ImgUrl} alt={pageDetails?.Name} />
+                    </div>
+                    <div className="page-info">
+                        <h1 className="page-title">{pageDetails?.Name}</h1>
+                        <p className="page-description">{pageDetails?.Description}</p>
+                        <div className="page-metrics">
+                            <p><strong><b>Category:</b></strong> {pageDetails?.Category}</p>
+                            <p><strong><b>Intensity Level:</b></strong> {pageDetails?.IntensityLevel}</p>
+                            <p><strong><b>Duration:</b></strong> {pageDetails?.Duration}</p>
+                            <p><strong><b>Calories Burned:</b></strong> {pageDetails?.CaloriesBurned}</p>
+                            <p><strong><b>Location:</b></strong> {pageDetails?.Location}</p>
+                        </div>
+                        <div className="page-details-grid">
+                            <div><strong>Benefits:</strong> {pageDetails?.Benefits}</div>
+                            <div><strong>Equipment Needed:</strong> {pageDetails?.EquipmentNeeded}</div>
+                            <div><strong>Suitable For:</strong> {pageDetails?.SuitableFor}</div>
+                            <div><strong>Muscles Worked:</strong> {pageDetails?.MusclesWorked}</div>
+                            <div><strong>Frequency:</strong> {pageDetails?.Frequency}</div>
+                            <div><strong>Examples:</strong> {pageDetails?.Examples}</div>
+                            <div><strong>Safety Tips:</strong> {pageDetails?.SafetyTips}</div>
+                            <div><strong>Progression:</strong> {pageDetails?.Progression}</div>
+                            <div><strong>Resources:</strong> {pageDetails?.Resources}</div>
+                            <div><strong>Community:</strong> {pageDetails?.Community}</div>
+                        </div>
+                    </div>
                 </div>
-                <h1>{pageDetails?.Name}</h1>
-                <p>Description: {pageDetails?.Description}</p>
-                <p>Category: {pageDetails?.Category}</p>
-                <p>Benefits: {pageDetails?.Benefits}</p>
-                <p>Intensity Level: {pageDetails?.IntensityLevel}</p>
-                <p>Duration: {pageDetails?.Duration}</p>
-                <p>Equipment Needed: {pageDetails?.EquipmentNeeded}</p>
-                <p>Suitable For: {pageDetails?.SuitableFor}</p>
-                <p>Calories Burned: {pageDetails?.CaloriesBurned}</p>
-                <p>Muscles Worked: {pageDetails?.MusclesWorked}</p>
-                <p>Frequency: {pageDetails?.Frequency}</p>
-                <p>Location: {pageDetails?.Location}</p>
-                <p>Examples: {pageDetails?.Examples}</p>
-                <p>Safety Tips: {pageDetails?.SafetyTips}</p>
-                <p>Progression: {pageDetails?.Progression}</p>
-                <p>Resources: {pageDetails?.Resources}</p>
-                <p>Community: {pageDetails?.Community}</p>
             </div>
         </div>
+
+
     );
 };
 
