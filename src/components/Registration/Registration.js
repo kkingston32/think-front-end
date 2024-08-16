@@ -82,8 +82,8 @@ const Registration = () => {
 
 
     return (
-        <div>
-            <div className='nav'><Nav /></div>
+        <div className='main-container'>
+            <div className="nav"><Nav /></div>
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-6">
