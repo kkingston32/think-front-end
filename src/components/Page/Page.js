@@ -8,13 +8,13 @@ const Page = () => {
     console.log("PAGE INFO: ", pageInfo)
 
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net/'
-    // let baseUrl = 'http://localhost:3232/'
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
 
     useEffect(() => {
         const getPageInfo = async () => {
             try {
-                const response = await fetch(baseUrl + `page/${pageInfo}`, {
+                const response = await fetch(baseUrl + `/page/${pageInfo}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

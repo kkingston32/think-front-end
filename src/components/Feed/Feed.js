@@ -119,7 +119,7 @@ const Feed = ({ userId }) => {
                                     <Link to={`/profile/${post.posterId}`}>{post.posterName}</Link>
                                     <p className='card-body'>{post.content}</p>
                                     <div>
-                                        {post.imageUrl && <img className="post-image" src={`http://localhost:3232/${post.imageUrl}`} alt="Post Image" />}
+                                        {post.imageUrl && <img className="post-image" src={baseUrl + `/${post.imageUrl}`} alt="Post Image" />}
 
                                     </div>
                                     <p>{new Date(post.date).toLocaleDateString()}</p>

@@ -97,7 +97,7 @@ const FitnessPreferencesForm = () => {
         console.log('Form submitted successfully', formData);
         console.log("Update Clicked");
 
-        const url = "http://localhost:3232/update/" + userId;
+        const url = baseUrl+ "/update/" + userId;
         const theBody = {
             firstName: formData.firstName,
             lastName: formData.lastName,

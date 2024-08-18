@@ -33,7 +33,7 @@ const UserProfile = () => {
             credentials: 'include',
         };
 
-        let url = baseUrl+ `/userprofile/${userId}`;
+        let url = baseUrl + `/userprofile/${userId}`;
 
         fetch(url, fetchOptions)
             .then(response => response.json())
@@ -54,14 +54,14 @@ const UserProfile = () => {
                     data.followDetails.followers.forEach(follower => {
                         if (follower.imgUrl) {
                             const followerRelativePath = follower.imgUrl.split('public')[1];
-                            followerImgFiles[follower.id] = baseUrl+ `/public${followerRelativePath}`;
+                            followerImgFiles[follower.id] = baseUrl + `/public${followerRelativePath}`;
                         }
                     });
 
                     data.followDetails.following.forEach(following => {
                         if (following.imgUrl) {
                             const followingRelativePath = following.imgUrl.split('public')[1];
-                            followingImgFiles[following.id] = baseUrl+ `/public${followingRelativePath}`;
+                            followingImgFiles[following.id] = baseUrl + `/public${followingRelativePath}`;
                         }
                     });
 
