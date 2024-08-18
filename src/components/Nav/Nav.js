@@ -3,16 +3,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 
 const Nav = () => {
+
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
+
     const [profile, setProfile] = useState(undefined);
     const [userId, setUserId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const logo = "http://localhost:3232/public/images/THINK.png";
+    const logo = baseUrl+ "/public/images/THINK.png";
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                const response = await fetch('http://localhost:3232/getCookies', {
+                const response = await fetch(baseUrl + '/getCookies', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -27,7 +32,7 @@ const Nav = () => {
     }, []);
 
     const handleLogout = () => {
-        fetch("http://localhost:3232/logout", {
+        fetch(baseUrl + "/logout", {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -44,7 +49,7 @@ const Nav = () => {
     };
 
     const handleProfile = () => {
-        fetch(`http://localhost:3232/userprofile/${userId}`, {
+        fetch(baseUrl + `/userprofile/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -66,7 +71,7 @@ const Nav = () => {
     };
 
     const handleUpdate = () => {
-        fetch(`http://localhost:3232/update/${userId}`, {
+        fetch(baseUrl+ `/update/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",

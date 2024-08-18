@@ -3,7 +3,9 @@ import Nav from '../Nav/Nav'
 
 const Home = () => {
 
-    const logo = "http://localhost:3232/public/images/THINK.png"
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+    const logo =baseUrl+ "/public/images/THINK.png"
 
     return (
         <div className='home-container'>

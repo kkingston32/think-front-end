@@ -17,6 +17,9 @@ const Registration = () => {
         profileImgUrl: ''
     });
 
+    let baseUrl= 'https://think-back-end.azurewebsites.net/'
+    // let baseUrl = 'http://localhost:3232/'
+
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -43,7 +46,7 @@ const Registration = () => {
             console.log('Form submitted successfully', formData);
             console.log("Update Clicked");
             
-            const url = "http://localhost:3232/register";
+            const url = baseUrl + "register";
             const theBody = {
                 firstName: formData.firstName,
                 lastName: formData.lastName,

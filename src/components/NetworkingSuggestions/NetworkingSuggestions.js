@@ -5,6 +5,9 @@ const NetworkSuggestions = ({ profileUserId }) => {
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
+        let baseUrl= 'https://think-back-end.azurewebsites.net'
+        // let baseUrl = 'http://localhost:3232'
+
         let fetchOptions = {
             method: "GET",
             headers: {
@@ -14,7 +17,7 @@ const NetworkSuggestions = ({ profileUserId }) => {
             credentials: 'include',
         };
 
-        let url = `http://localhost:3232/suggestions/${profileUserId}`;
+        let url = baseUrl+ `/suggestions/${profileUserId}`;
 
         fetch(url, fetchOptions)
             .then(response => response.json())
@@ -25,7 +28,7 @@ const NetworkSuggestions = ({ profileUserId }) => {
                         const relativePath = suggestion.profileImgUrl.split('public')[1];
                         return {
                             ...suggestion,
-                            profileImgUrl: `http://localhost:3232/public${relativePath}`
+                            profileImgUrl: baseUrl+ `/public${relativePath}`
                         };
                     }
                     return suggestion;

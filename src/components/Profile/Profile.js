@@ -14,7 +14,10 @@ const Profile = () => {
     const [isFollowing, setIsFollowing] = useState(false); // Track follow/unfollow state
     const [error, setError] = useState(null); // Track errors
 
-    const logo = "http://localhost:3232/public/images/THINK.png";
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
+    const logo = baseUrl + "/public/images/THINK.png";
     const navigate = useNavigate();
     const { profileUserId } = useParams();
 
@@ -22,7 +25,7 @@ const Profile = () => {
         const fetchProfile = async () => {
             try { 
                 setLoading(true)
-                const response = await axios.get(`http://localhost:3232/profile/${profileUserId}`, {
+                const response = await axios.get(baseUrl + `/profile/${profileUserId}`, {
                     withCredentials: true,
                 });
                 const data = response.data;
@@ -31,7 +34,7 @@ const Profile = () => {
 
                 if (data.user.profileImgUrl) {
                     const relativePath = data.user.profileImgUrl.split('public')[1];
-                    const imageUrl = `http://localhost:3232/public${relativePath}`;
+                    const imageUrl = baseUrl+ `/public${relativePath}`;
                     setImgFile(imageUrl);
                 }
 
@@ -41,14 +44,14 @@ const Profile = () => {
                 data.followDetails.followers.forEach(follower => {
                     if (follower.imgUrl) {
                         const followerRelativePath = follower.imgUrl.split('public')[1];
-                        followerImgFiles[follower.id] = `http://localhost:3232/public${followerRelativePath}`;
+                        followerImgFiles[follower.id] = baseUrl+ `/public${followerRelativePath}`;
                     }
                 });
 
                 data.followDetails.following.forEach(following => {
                     if (following.imgUrl) {
                         const followingRelativePath = following.imgUrl.split('public')[1];
-                        followingImgFiles[following.id] = `http://localhost:3232/public${followingRelativePath}`;
+                        followingImgFiles[following.id] = baseUrl+ `/public${followingRelativePath}`;
                     }
                 });
 
@@ -58,7 +61,7 @@ const Profile = () => {
                 const exerciseImages = {};
                 const exercisePromises = data.user.exerciseType.map(async (exerciseType) => {
                     try {
-                        const pageResponse = await axios.get(`http://localhost:3232/page/${exerciseType}`);
+                        const pageResponse = await axios.get(baseUrl+ `/page/${exerciseType}`);
                         const pageData = pageResponse.data;
                         if (pageData && pageData.ImgUrl) {
                             exerciseImages[exerciseType] = pageData.ImgUrl;
@@ -90,12 +93,12 @@ const Profile = () => {
         setIsFollowing(true);
         try {
             // Send the follow request
-            await axios.put(`http://localhost:3232/follow/${profileUserId}`, {}, {
+            await axios.put(baseUrl+ `/follow/${profileUserId}`, {}, {
                 withCredentials: true,
             });
     
             // Fetch the updated profile data to refresh the followers
-            const profileResponse = await axios.get(`http://localhost:3232/profile/${profileUserId}`, {
+            const profileResponse = await axios.get(baseUrl+ `/profile/${profileUserId}`, {
                 withCredentials: true,
             });
     
@@ -114,7 +117,7 @@ const Profile = () => {
     const unfollow = async () => {
         setIsFollowing(true);
         try {
-            const response = await axios.put(`http://localhost:3232/unfollow/${profileUserId}`, {}, {
+            const response = await axios.put(baseUrl+ `/unfollow/${profileUserId}`, {}, {
                 withCredentials: true,
             });
 

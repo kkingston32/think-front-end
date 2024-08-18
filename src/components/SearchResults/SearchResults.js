@@ -8,7 +8,12 @@ const SearchResults = () => {
     const [error, setError] = useState('');
     const [imgFiles, setImgFiles] = useState({});
     const location = useLocation();
-    const logo = "http://localhost:3232/public/images/THINK.png";
+    
+
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
+    const logo = baseUrl + "/public/images/THINK.png";
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
@@ -22,7 +27,7 @@ const SearchResults = () => {
         setLoading(true);
         setError('');
         try {
-            const response = await fetch(`http://localhost:3232/search?name=${name}`, {
+            const response = await fetch(baseUrl+ `/search?name=${name}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,7 +45,7 @@ const SearchResults = () => {
             data.users.forEach(user => {
                 if (user.profileImgUrl) {
                     const relativePath = user.profileImgUrl.split('public')[1];
-                    imgFiles[user._id] = `http://localhost:3232/public${relativePath}`;
+                    imgFiles[user._id] = baseUrl + `/public${relativePath}`;
                 }
             });
             setImgFiles(imgFiles);

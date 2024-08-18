@@ -7,10 +7,14 @@ const Page = () => {
     const { pageInfo } = useParams();
     console.log("PAGE INFO: ", pageInfo)
 
+
+    let baseUrl= 'https://think-back-end.azurewebsites.net/'
+    // let baseUrl = 'http://localhost:3232/'
+
     useEffect(() => {
         const getPageInfo = async () => {
             try {
-                const response = await fetch(`http://localhost:3232/page/${pageInfo}`, {
+                const response = await fetch(baseUrl + `page/${pageInfo}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

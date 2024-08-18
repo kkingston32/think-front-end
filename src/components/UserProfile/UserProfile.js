@@ -6,6 +6,9 @@ import Cookies from 'js-cookie';
 import NetworkSuggestions from '../NetworkingSuggestions/NetworkingSuggestions';
 
 const UserProfile = () => {
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
     const [imgFile, setImgFile] = useState('');
     const [imgPreview, setImgPreview] = useState('');
     const [profile, setProfile] = useState(undefined);
@@ -18,7 +21,7 @@ const UserProfile = () => {
 
     const navigate = useNavigate();
     const { userId } = useParams();
-    const logo = "http://localhost:3232/public/images/THINK.png";
+    const logo = baseUrl+ "/public/images/THINK.png";
 
     useEffect(() => {
         let fetchOptions = {
@@ -30,7 +33,7 @@ const UserProfile = () => {
             credentials: 'include',
         };
 
-        let url = `http://localhost:3232/userprofile/${userId}`;
+        let url = baseUrl+ `/userprofile/${userId}`;
 
         fetch(url, fetchOptions)
             .then(response => response.json())
@@ -41,7 +44,7 @@ const UserProfile = () => {
 
                     if (data.user.profileImgUrl) {
                         const relativePath = data.user.profileImgUrl.split('public')[1];
-                        const imageUrl = `http://localhost:3232/public${relativePath}`;
+                        const imageUrl = baseUrl+ `/public${relativePath}`;
                         setImgFile(imageUrl);
                     }
 
@@ -51,14 +54,14 @@ const UserProfile = () => {
                     data.followDetails.followers.forEach(follower => {
                         if (follower.imgUrl) {
                             const followerRelativePath = follower.imgUrl.split('public')[1];
-                            followerImgFiles[follower.id] = `http://localhost:3232/public${followerRelativePath}`;
+                            followerImgFiles[follower.id] = baseUrl+ `/public${followerRelativePath}`;
                         }
                     });
 
                     data.followDetails.following.forEach(following => {
                         if (following.imgUrl) {
                             const followingRelativePath = following.imgUrl.split('public')[1];
-                            followingImgFiles[following.id] = `http://localhost:3232/public${followingRelativePath}`;
+                            followingImgFiles[following.id] = baseUrl+ `/public${followingRelativePath}`;
                         }
                     });
 
@@ -67,7 +70,7 @@ const UserProfile = () => {
                     const exerciseImages = {};
                     const exercisePromises = data.user.exerciseType.map(async (exerciseType) => {
                         try {
-                            const pageResponse = await fetch(`http://localhost:3232/page/${exerciseType}`);
+                            const pageResponse = await fetch(baseUrl+`/page/${exerciseType}`);
                             if (!pageResponse.ok) {
                                 throw new Error(`Page not found for exercise type: ${exerciseType}`);
                             }
@@ -101,7 +104,7 @@ const UserProfile = () => {
         setUploading(true);
         const formData = new FormData(event.target);
 
-        fetch('http://localhost:3232/uploadProfilePic/' + userId, {
+        fetch(baseUrl +'/uploadProfilePic/' + userId, {
             method: 'POST',
             body: formData,
             credentials: 'include'
@@ -128,7 +131,7 @@ const UserProfile = () => {
             },
             credentials: 'include'
         };
-        let url = `http://localhost:3232/update/${userId}`;
+        let url = baseUrl + `/update/${userId}`;
         fetch(url, fetchOptions)
             .then(response => response.json())
             .then(data => {

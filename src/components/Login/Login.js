@@ -21,6 +21,9 @@ const Login = () => {
         });
     };
 
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
     const validate = () => {
         let errors = {};
         if (!formData.email) errors.email = 'Email is required';
@@ -34,7 +37,7 @@ const Login = () => {
         if (validate()) {
             console.log('Form submitted successfully', formData);
             console.log("Update Clicked")
-            let url = "http://localhost:3232/login"
+            let url = baseUrl + "/login"
             let theBody =
             {
                 email: formData.email,

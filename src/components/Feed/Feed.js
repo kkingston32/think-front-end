@@ -13,6 +13,9 @@ const Feed = ({ userId }) => {
 
     });
 
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -42,7 +45,7 @@ const Feed = ({ userId }) => {
         }
 
         try {
-            const response = await axios.post('http://localhost:3232/newPost', data, {
+            const response = await axios.post(baseUrl+ '/newPost', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -61,7 +64,7 @@ const Feed = ({ userId }) => {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(`http://localhost:3232/posts/${userId}`);
+            const response = await axios.get(baseUrl+ `/posts/${userId}`);
             setPosts(response.data);
         } catch (error) {
             console.error('Error fetching posts: ', error);

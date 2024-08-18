@@ -3,8 +3,8 @@ import Nav from '../Nav/Nav';
 import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-let baseUrl = "http://locahost:3232/";
-// let baseUrl = "http://128.25.11.255:5050/";
+let baseUrl= 'https://think-back-end.azurewebsites.net'
+// let baseUrl = 'http://localhost:3232'
 
 const FitnessPreferencesForm = () => {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ const FitnessPreferencesForm = () => {
             credentials: 'include'
         };
 
-        const url = baseUrl + "update/" + userId;
+        const url = baseUrl + "/update/" + userId;
 
         fetch(url, fetchOptions)
             .then(response => response.json())
