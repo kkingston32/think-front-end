@@ -13,8 +13,8 @@ const Feed = ({ userId }) => {
 
     });
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net'
-    // let baseUrl = 'http://localhost:3232'
+    // let baseUrl= 'https://think-back-end.azurewebsites.net'
+    let baseUrl = 'http://localhost:3232'
 
     const navigate = useNavigate();
 
