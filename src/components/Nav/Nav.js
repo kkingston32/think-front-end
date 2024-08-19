@@ -18,7 +18,7 @@ const Nav = () => {
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                const response = await fetch(baseUrl + '/getCookies', {
+                const response = await fetch('https://think-back-end.azurewebsites.net' + '/getCookies', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -33,7 +33,7 @@ const Nav = () => {
     }, [userId]);  
 
     const handleLogout = () => {
-        fetch(baseUrl + "/logout", {
+        fetch('https://think-back-end.azurewebsites.net' + "/logout", {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -50,7 +50,7 @@ const Nav = () => {
     };
 
     const handleProfile = () => {
-        fetch(baseUrl + `/userprofile/${userId}`, {
+        fetch('https://think-back-end.azurewebsites.net' + `/userprofile/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -72,7 +72,7 @@ const Nav = () => {
     };
 
     const handleUpdate = () => {
-        fetch(baseUrl+ `/update/${userId}`, {
+        fetch('https://think-back-end.azurewebsites.net'+ `/update/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
