@@ -12,6 +12,7 @@ const Nav = () => {
     const [userId, setUserId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const logo = baseUrl+ "/public/images/THINK.png";
+    console.log(baseUrl)
     const navigate = useNavigate();
 
     useEffect(() => {
