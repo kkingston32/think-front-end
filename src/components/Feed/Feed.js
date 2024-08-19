@@ -45,7 +45,7 @@ const Feed = ({ userId }) => {
         }
 
         try {
-            const response = await axios.post(baseUrl+ '/newPost', data, {
+            const response = await axios.post(baseUrl + '/newPost', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
