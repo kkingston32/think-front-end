@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Nav from '../Nav/Nav';
 import Feed from '../Feed/Feed';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import Cookies from 'js-cookie';
 import NetworkSuggestions from '../NetworkingSuggestions/NetworkingSuggestions';
 
 const UserProfile = () => {
-    let baseUrl = 'https://think-back-end.azurewebsites.net';
-    // let baseUrl = 'http://localhost:3232';
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
 
     const [imgFile, setImgFile] = useState('');
+    const [imgPreview, setImgPreview] = useState('');
     const [profile, setProfile] = useState(undefined);
     const [followDetails, setFollowDetails] = useState(undefined);
     const [followImgFiles, setFollowImgFiles] = useState({ followers: {}, following: {} });
@@ -17,29 +18,33 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
     const [uploadMessage, setUploadMessage] = useState('');
-    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
     const { userId } = useParams();
-    const logo = baseUrl + "/public/images/THINK.png";
+    const logo = baseUrl+ "/public/images/THINK.png";
 
     useEffect(() => {
-        const fetchProfileData = async () => {
-            try {
-                setLoading(true);
+        let fetchOptions = {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                "Access-Control-Allow-Credentials": 'true'
+            },
+            credentials: 'include',
+        };
 
-                const response = await axios.get(baseUrl + `/userprofile/${userId}`, {
-                    withCredentials: true,
-                });
-                const data = response.data;
+        let url = baseUrl + `/userprofile/${userId}`;
 
+        fetch(url, fetchOptions)
+            .then(response => response.json())
+            .then(async data => {
                 if (data.user) {
                     setProfile(data.user);
                     setFollowDetails(data.followDetails);
 
                     if (data.user.profileImgUrl) {
                         const relativePath = data.user.profileImgUrl.split('public')[1];
-                        const imageUrl = baseUrl + `/public${relativePath}`;
+                        const imageUrl = baseUrl+ `/public${relativePath}`;
                         setImgFile(imageUrl);
                     }
 
@@ -65,8 +70,11 @@ const UserProfile = () => {
                     const exerciseImages = {};
                     const exercisePromises = data.user.exerciseType.map(async (exerciseType) => {
                         try {
-                            const pageResponse = await axios.get(baseUrl + `/page/${exerciseType}`);
-                            const pageData = pageResponse.data;
+                            const pageResponse = await fetch(baseUrl+`/page/${exerciseType}`);
+                            if (!pageResponse.ok) {
+                                throw new Error(`Page not found for exercise type: ${exerciseType}`);
+                            }
+                            const pageData = await pageResponse.json();
                             if (pageData && pageData.ImgUrl) {
                                 exerciseImages[exerciseType] = pageData.ImgUrl;
                             } else {
@@ -80,15 +88,9 @@ const UserProfile = () => {
                     await Promise.all(exercisePromises);
                     setExerciseTypeImages({ ...exerciseImages });
                 }
-            } catch (error) {
-                console.error('Error fetching profile data: ', error);
-                setError('Failed to load profile data. Please try again later.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProfileData();
+            })
+            .catch(error => console.error("Error fetching data: ", error))
+            .finally(() => setLoading(false));
     }, [userId]);
 
     const handleFileChange = (event) => {
@@ -97,46 +99,50 @@ const UserProfile = () => {
         setImgPreview(URL.createObjectURL(file));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         setUploading(true);
-        setUploadMessage('');
+        const formData = new FormData(event.target);
 
-        try {
-            const formData = new FormData();
-            formData.append('image', imgFile);
-
-            const response = await axios.post(baseUrl + '/uploadProfilePic/' + userId, formData, {
-                withCredentials: true,
-            });
-
-            setImgFile(response.data.filePath);
-            setUploadMessage('File uploaded successfully');
-            window.location.reload();
-        } catch (error) {
-            console.error('Error uploading file:', error);
-            setUploadMessage('Upload failed. Please try again later.');
-        } finally {
-            setUploading(false);
-        }
+        fetch(baseUrl +'/uploadProfilePic/' + userId, {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(data => {
+                setImgFile(data.filePath);
+                setUploadMessage('File uploaded successfully');
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setUploadMessage('Upload failed');
+            })
+            .finally(() => setUploading(false));
     };
 
-    const handleUpdate = async () => {
-        try {
-            const response = await axios.get(baseUrl + `/update/${userId}`, {
-                withCredentials: true,
-            });
-
-            if (response.data._id) {
-                setProfile(response.data);
-                navigate(`/update/${response.data._id}`);
-            } else {
-                navigate('/');
-            }
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            setError('Failed to update profile. Please try again later.');
-        }
+    const handleUpdate = () => {
+        let fetchOptions = {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json",
+                "Access-Control-Allow-Credentials": 'true'
+            },
+            credentials: 'include'
+        };
+        let url = baseUrl + `/update/${userId}`;
+        fetch(url, fetchOptions)
+            .then(response => response.json())
+            .then(data => {
+                if (data._id) {
+                    setProfile(data);
+                    navigate(`/update/${data._id}`);
+                } else {
+                    navigate('/');
+                }
+            })
+            .catch(error => console.error("Error fetching data: ", error));
     };
 
     if (loading) {
@@ -145,21 +151,17 @@ const UserProfile = () => {
         </div>;
     }
 
-    if (error) {
-        return <div className="error-message">{error}</div>;
-    }
-
     return (
         <div className="profile-container">
             <div className="nav"><Nav /></div>
             <div className="user-detail-box">
                 <h1 className='text-center'>My Profile</h1>
-                <br />
+                <br/>
                 <h4 className='text-center'>Friend Suggestions</h4>
                 <div className="grid-container">
                     <div className="photo-box">
                         <div className="image-container">
-                            <img className='preview-image' id="img-preview" src={imgFile || logo} alt="Upload your photo" />
+                            <img className='preview-image' id="img-preview" src={imgPreview || imgFile} alt="Upload your photo" />
                         </div>
                         <p>{uploadMessage}</p>
                         <form id='image-form' onSubmit={handleSubmit}>
@@ -177,7 +179,7 @@ const UserProfile = () => {
                                     <h3 className='text-center'>Exercise Type</h3>
                                     {profile?.exerciseType?.map(exerciseType => (
                                         <div key={exerciseType} className='preferences-box'>
-                                            <img className='list-img' src={exerciseTypeImages[exerciseType] || logo} alt={exerciseType} />
+                                            <img  className='list-img' src={exerciseTypeImages[exerciseType] || logo} alt={exerciseType} />
                                             <Link to={`/page/${exerciseType.replace(/\s+/g, '')}`}>{exerciseType}</Link>
                                         </div>
                                     ))}
@@ -206,7 +208,7 @@ const UserProfile = () => {
                             <h3 className='text-center'>Followers</h3>
                             {followDetails?.followers?.map(follower => (
                                 <div key={follower.id}>
-                                    <img className='list-img' src={followImgFiles.followers[follower.id]} alt={`${follower.name}'s profile`} />
+                                    <img  className='list-img' src={followImgFiles.followers[follower.id]} alt={`${follower.name}'s profile`} />
                                     <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
                                 </div>
                             ))}
@@ -215,7 +217,7 @@ const UserProfile = () => {
                             <h3 className='text-center'>Following</h3>
                             {followDetails?.following?.map(following => (
                                 <div key={following.id}>
-                                    <img className='list-img' src={followImgFiles.following[following.id]} alt={`${following.name}'s profile`} />
+                                    <img  className='list-img' src={followImgFiles.following[following.id]} alt={`${following.name}'s profile`} />
                                     <Link to={`/profile/${following.id}`}>{following.name}</Link>
                                 </div>
                             ))}
