@@ -4,21 +4,20 @@ import debounce from 'lodash.debounce';
 
 const Nav = () => {
 
-    // let baseUrl= 'https://think-back-end.azurewebsites.net'
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
     // let baseUrl = 'http://localhost:3232'
 
 
     const [profile, setProfile] = useState(undefined);
     const [userId, setUserId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const logo = 'https://think-back-end.azurewebsites.net' + "/public/images/THINK.png";
-    // console.log(baseUrl)
+    const logo = baseUrl+ "/public/images/THINK.png";
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                const response = await fetch('https://think-back-end.azurewebsites.net' + '/getCookies', {
+                const response = await fetch(baseUrl + '/getCookies', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -30,10 +29,10 @@ const Nav = () => {
             }
         };
         fetchCookies();
-    }, [userId]);  
+    }, []);
 
     const handleLogout = () => {
-        fetch('https://think-back-end.azurewebsites.net' + "/logout", {
+        fetch(baseUrl + "/logout", {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -50,7 +49,7 @@ const Nav = () => {
     };
 
     const handleProfile = () => {
-        fetch('https://think-back-end.azurewebsites.net' + `/userprofile/${userId}`, {
+        fetch(baseUrl + `/userprofile/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -72,7 +71,7 @@ const Nav = () => {
     };
 
     const handleUpdate = () => {
-        fetch('https://think-back-end.azurewebsites.net'+ `/update/${userId}`, {
+        fetch(baseUrl+ `/update/${userId}`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
