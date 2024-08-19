@@ -13,8 +13,8 @@ const Feed = ({ userId }) => {
 
     });
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net'
-    // let baseUrl = 'http://localhost:3232'
+    // let baseUrl= 'https://think-back-end.azurewebsites.net'
+    let baseUrl = 'http://localhost:3232'
 
     const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const Feed = ({ userId }) => {
         }
 
         try {
-            const response = await axios.post(baseUrl+ '/newPost', data, {
+            const response = await axios.post(baseUrl + '/newPost', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

@@ -10,8 +10,8 @@ const SearchResults = () => {
     const location = useLocation();
     
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net'
-    // let baseUrl = 'http://localhost:3232'
+    // let baseUrl= 'https://think-back-end.azurewebsites.net'
+    let baseUrl = 'http://localhost:3232'
 
     const logo = baseUrl + "/public/images/THINK.png";
 

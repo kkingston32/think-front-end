@@ -5,8 +5,8 @@ const NetworkSuggestions = ({ profileUserId }) => {
     const [suggestions, setSuggestions] = useState([]);
 
     useEffect(() => {
-        let baseUrl= 'https://think-back-end.azurewebsites.net'
-        // let baseUrl = 'http://localhost:3232'
+        // let baseUrl= 'https://think-back-end.azurewebsites.net'
+        let baseUrl = 'http://localhost:3232'
 
         let fetchOptions = {
             method: "GET",
