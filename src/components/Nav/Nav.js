@@ -11,8 +11,8 @@ const Nav = () => {
     const [profile, setProfile] = useState(undefined);
     const [userId, setUserId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const logo = baseUrl+ "/public/images/THINK.png";
-    console.log(baseUrl)
+    const logo = 'https://think-back-end.azurewebsites.net' + "/public/images/THINK.png";
+    // console.log(baseUrl)
     const navigate = useNavigate();
 
     useEffect(() => {
