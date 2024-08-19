@@ -4,8 +4,6 @@ import debounce from 'lodash.debounce';
 
 const Nav = () => {
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net'
-    // let baseUrl = 'http://localhost:3232'
 
 
     const [profile, setProfile] = useState(undefined);
