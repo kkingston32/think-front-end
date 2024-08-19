@@ -17,8 +17,8 @@ const Registration = () => {
         profileImgUrl: ''
     });
 
-    // let baseUrl= 'https://think-back-end.azurewebsites.net/'
-    let baseUrl = 'http://localhost:3232/'
+    let baseUrl= 'https://think-back-end.azurewebsites.net/'
+    // let baseUrl = 'http://localhost:3232/'
 
     const [errors, setErrors] = useState({});
 

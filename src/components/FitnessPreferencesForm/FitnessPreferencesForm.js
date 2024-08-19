@@ -3,8 +3,8 @@ import Nav from '../Nav/Nav';
 import { useNavigate, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-// let baseUrl= 'https://think-back-end.azurewebsites.net'
-let baseUrl = 'http://localhost:3232'
+let baseUrl= 'https://think-back-end.azurewebsites.net'
+// let baseUrl = 'http://localhost:3232'
 
 const FitnessPreferencesForm = () => {
     const navigate = useNavigate();

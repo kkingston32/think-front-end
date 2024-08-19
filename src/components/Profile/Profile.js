@@ -14,8 +14,8 @@ const Profile = () => {
     const [isFollowing, setIsFollowing] = useState(false); // Track follow/unfollow state
     const [error, setError] = useState(null); // Track errors
 
-    // let baseUrl= 'https://think-back-end.azurewebsites.net'
-    let baseUrl = 'http://localhost:3232'
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
 
     const logo = baseUrl + "/public/images/THINK.png";
     const navigate = useNavigate();

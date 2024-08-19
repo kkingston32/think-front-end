@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 import NetworkSuggestions from '../NetworkingSuggestions/NetworkingSuggestions';
 
 const UserProfile = () => {
-    // let baseUrl= 'https://think-back-end.azurewebsites.net'
-    let baseUrl = 'http://localhost:3232'
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
 
     const [imgFile, setImgFile] = useState('');
     const [imgPreview, setImgPreview] = useState('');

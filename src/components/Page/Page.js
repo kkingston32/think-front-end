@@ -8,8 +8,8 @@ const Page = () => {
     console.log("PAGE INFO: ", pageInfo)
 
 
-    // let baseUrl= 'https://think-back-end.azurewebsites.net'
-    let baseUrl = 'http://localhost:3232'
+    let baseUrl= 'https://think-back-end.azurewebsites.net'
+    // let baseUrl = 'http://localhost:3232'
 
     useEffect(() => {
         const getPageInfo = async () => {
