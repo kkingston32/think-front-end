@@ -14,7 +14,7 @@ const Nav = () => {
     const logo = baseUrl+ "/public/images/THINK.png";
     const navigate = useNavigate();
 
-    // useEffect(() => {
+    useEffect(() => {
         const fetchCookies = async () => {
             try {
                 const response = await fetch(baseUrl + '/getCookies', {
@@ -42,7 +42,7 @@ const Nav = () => {
         };
     
         fetchCookies();
-    // }, []);
+    }, []);
     
 
     const handleLogout = () => {
