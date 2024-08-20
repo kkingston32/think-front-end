@@ -24,12 +24,13 @@ const Nav = () => {
                 const data = await response.json();
                 const theUserId = data.cookies.userId;
                 setUserId(theUserId);
+
             } catch (error) {
                 console.error('Error fetching cookies:', error);
             }
         };
         fetchCookies();
-    }, []);
+    }, [userId]);
 
     const handleLogout = () => {
         fetch(baseUrl + "/logout", {
@@ -49,7 +50,7 @@ const Nav = () => {
     };
 
     const handleProfile = () => {
-        console.log("USER PROFILE USER ID: ", userId)
+        
         fetch(baseUrl + `/userprofile/${userId}`, {
             method: "GET",
             headers: {
