@@ -23,6 +23,7 @@ const Nav = () => {
                 });
                 const data = await response.json();
                 const theUserId = data.cookies.userId;
+                console.log("Nav user ID: ", theUserId)
                 setUserId(theUserId);
 
             } catch (error) {
