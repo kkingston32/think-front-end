@@ -42,7 +42,7 @@ const Nav = () => {
         };
     
         fetchCookies();
-    }, []);
+    }, [userId]);
     
 
     const handleLogout = () => {
