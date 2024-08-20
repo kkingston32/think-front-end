@@ -49,6 +49,7 @@ const Nav = () => {
     };
 
     const handleProfile = () => {
+        console.log("USER PROFILE USER ID: ", userId)
         fetch(baseUrl + `/userprofile/${userId}`, {
             method: "GET",
             headers: {
