@@ -19,28 +19,17 @@ const Nav = () => {
             try {
                 const response = await fetch(baseUrl + '/getCookies', {
                     method: 'GET',
-                    credentials: 'include', // Include cookies in the request
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Access-Control-Allow-Origin': 'https://thinkwellness.azurewebsites.net' // Adjust to your frontend origin
-                    }
+                    credentials: 'include'
                 });
-    
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-    
                 const data = await response.json();
                 const theUserId = data.cookies.userId;
-                console.log("Nav user ID: ", theUserId);
+                console.log("Nav user ID: ", theUserId)
                 setUserId(theUserId);
-    
+
             } catch (error) {
                 console.error('Error fetching cookies:', error);
             }
         };
-    
         fetchCookies();
     }, []);
     
