@@ -17,23 +17,14 @@ const Nav = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // const fetchCookies = async () => {
-        //     try {
-        //         // const response = await fetch(baseUrl + '/getCookies', {
-        //         //     method: 'GET',
-        //         //     credentials: 'include'
-        //         // });
-        //         // const data = await response.json();
-                
-        //         const theUserId = data.cookies.userId;
-        //         console.log("Nav user ID: ", theUserId)
-        //         setUserId(theUserId);
-
-        //     } catch (error) {
-        //         console.error('Error fetching cookies:', error);
-        //     }
-        // };
-        // fetchCookies();
+        const fetchCookies = async () => {
+            try {
+                setUserId(cookies.userId)
+            } catch (error) {
+                console.error('Error fetching cookies:', error);
+            }
+        };
+        fetchCookies();
     }, []);
     
 
