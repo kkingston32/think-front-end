@@ -646,3 +646,6 @@ nav.navbar.bg-primary {
   background-color: #f4f4f4;
 }
 
+.form-check-input{
+  border-color: rgba(var(--bs-primary-rgb))
+}

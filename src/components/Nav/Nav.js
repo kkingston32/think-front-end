@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
+import {useCookies} from 'react-cookie';
 
 const Nav = () => {
 
@@ -11,30 +12,33 @@ const Nav = () => {
     const [profile, setProfile] = useState(undefined);
     const [userId, setUserId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
     const logo = baseUrl+ "/public/images/THINK.png";
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchCookies = async () => {
-            try {
-                const response = await fetch(baseUrl + '/getCookies', {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-                const data = await response.json();
-                const theUserId = data.cookies.userId;
-                console.log("Nav user ID: ", theUserId)
-                setUserId(theUserId);
+        // const fetchCookies = async () => {
+        //     try {
+        //         // const response = await fetch(baseUrl + '/getCookies', {
+        //         //     method: 'GET',
+        //         //     credentials: 'include'
+        //         // });
+        //         // const data = await response.json();
+                
+        //         const theUserId = data.cookies.userId;
+        //         console.log("Nav user ID: ", theUserId)
+        //         setUserId(theUserId);
 
-            } catch (error) {
-                console.error('Error fetching cookies:', error);
-            }
-        };
-        fetchCookies();
+        //     } catch (error) {
+        //         console.error('Error fetching cookies:', error);
+        //     }
+        // };
+        // fetchCookies();
     }, []);
     
 
     const handleLogout = () => {
+        removeCookie('userId');
         fetch(baseUrl + "/logout", {
             method: "GET",
             headers: {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Nav from '../Nav/Nav'
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import {useCookies} from 'react-cookie';
 
 const Login = () => {
     const navigate = useNavigate()
     const [message, setMessage] = useState(undefined)
+    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -62,7 +63,8 @@ const Login = () => {
                     if (data.alreadyExisted == false) {
                         navigate('/register')
                     } else {
-                        Cookies.set('userId', data._id, { path: '/' })
+                        // Cookies.set('userId', data._id, { path: '/' })
+                        setCookie('userId', data._id);
                         navigate('/userprofile/' + data._id)
                     }
                 })
