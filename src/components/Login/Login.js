@@ -52,7 +52,7 @@ const Login = () => {
                     "Access-Control-Allow-Credentials": 'true'
                 },
                 body: JSON.stringify(theBody),
-                credentials: 'include'
+                // credentials: 'include'
             }
             console.log("FETCH OPTIONS: ", fetchOptions)
 

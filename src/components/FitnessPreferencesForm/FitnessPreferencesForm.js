@@ -37,7 +37,7 @@ const FitnessPreferencesForm = () => {
                 "Content-type": "application/json",
                 "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include'
+            // credentials: 'include'
         };
 
         const url = baseUrl + "/update/" + userId;

@@ -50,7 +50,7 @@ const Feed = ({ userId }) => {
                     'Content-Type': 'multipart/form-data',
                     'Accept': 'application/json',
                 },
-                withCredentials: true,
+                // withCredentials: true,
             });
             console.log('Post created:', response.data);
             fetchPosts(); // Refresh posts after creating a new post

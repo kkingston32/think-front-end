@@ -14,7 +14,7 @@ const NetworkSuggestions = ({ profileUserId }) => {
                 "Content-type": "application/json",
                 "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include',
+            // credentials: 'include',
         };
 
         let url = baseUrl+ `/suggestions/${profileUserId}`;

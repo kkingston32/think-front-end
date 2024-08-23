@@ -39,7 +39,7 @@ const Nav = () => {
                 "Content-type": "application/json",
                 "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include'
+            // credentials: 'include'
         })
             .then(r => r.json())
             .then(data => {
