@@ -19,13 +19,17 @@ const Nav = () => {
     useEffect(() => {
         const fetchCookies = async () => {
             try {
-                setUserId(cookies.userId);
+                if(cookies.userId){
+                    setUserId(cookies.userId);
+                }else{
+                    setUserId(null)
+                }
             } catch (error) {
                 console.error('Error fetching cookies:', error);
             }
         };
         fetchCookies();
-    }, [cookies.userId]);
+    }, []);
 
     const handleLogout = () => {
         removeCookie('userId');
