@@ -15,6 +15,7 @@ import Feed from './components/Feed/Feed'
 import Page from './components/Page/Page';
 import Search from './components/SearchResults/SearchResults'
 import GoalTracker from './components/GoalTracker/GoalTracker';
+import { CookiesProvider } from 'react-cookie';
 
 const router = createBrowserRouter([
     {
