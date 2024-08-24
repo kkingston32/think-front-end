@@ -127,7 +127,7 @@ const UserProfile = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Credentials": 'true'
+                // "Access-Control-Allow-Credentials": 'true'
             },
             // credentials: 'include'
         };
