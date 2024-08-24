@@ -9,15 +9,15 @@ const UserProfile = () => {
     let baseUrl= 'https://think-back-end.azurewebsites.net'
     // let baseUrl = 'http://localhost:3232'
 
-    const [imgFile, setImgFile] = useState('');
-    const [imgPreview, setImgPreview] = useState('');
+    const [imgFile, setImgFile] = useState(null);
+    const [imgPreview, setImgPreview] = useState(null);
     const [profile, setProfile] = useState(undefined);
     const [followDetails, setFollowDetails] = useState(undefined);
     const [followImgFiles, setFollowImgFiles] = useState({ followers: {}, following: {} });
     const [exerciseTypeImages, setExerciseTypeImages] = useState({});
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
-    const [uploadMessage, setUploadMessage] = useState('');
+    const [uploadMessage, setUploadMessage] = useState(null);
 
     const navigate = useNavigate();
     const { userId } = useParams();
@@ -28,9 +28,9 @@ const UserProfile = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Credentials": 'true'
+                // "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include',
+            // credentials: 'include',
         };
 
         let url = baseUrl + `/userprofile/${userId}`;
@@ -39,6 +39,7 @@ const UserProfile = () => {
             .then(response => response.json())
             .then(async data => {
                 if (data.user) {
+                    console.log("User Profile Data: ",data.user)
                     setProfile(data.user);
                     setFollowDetails(data.followDetails);
 

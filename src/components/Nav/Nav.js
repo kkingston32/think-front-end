@@ -55,9 +55,9 @@ const Nav = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Credentials": 'true'
+                // "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include'
+            // credentials: 'include'
         })
             .then(response => response.json())
             .then(data => {
@@ -77,9 +77,9 @@ const Nav = () => {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
-                "Access-Control-Allow-Credentials": 'true'
+                // "Access-Control-Allow-Credentials": 'true'
             },
-            credentials: 'include'
+            // credentials: 'include'
         })
             .then(response => response.json())
             .then(data => {
