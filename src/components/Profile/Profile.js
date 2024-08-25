@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Nav from '../Nav/Nav';
 import Feed from '../Feed/Feed';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 const Profile = () => {
     const [imgFile, setImgFile] = useState('');
@@ -14,8 +13,8 @@ const Profile = () => {
     const [isFollowing, setIsFollowing] = useState(false); // Track follow/unfollow state
     const [error, setError] = useState(null); // Track errors
 
-    let baseUrl= 'https://think-back-end.azurewebsites.net'
-    // let baseUrl = 'http://localhost:3232'
+    let baseUrl = 'https://think-back-end.azurewebsites.net';
+    // let baseUrl = 'http://localhost:3232';
 
     const logo = baseUrl + "/public/images/THINK.png";
     const navigate = useNavigate();
@@ -24,17 +23,22 @@ const Profile = () => {
     useEffect(() => {
         const fetchProfile = async () => {
             try { 
-                setLoading(true)
-                const response = await axios.get(baseUrl + `/profile/${profileUserId}`, {
-                    withCredentials: true,
+                setLoading(true);
+                const response = await fetch(baseUrl + `/profile/${profileUserId}`, {
+                    // credentials: 'include',
                 });
-                const data = response.data;
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch profile data');
+                }
+
+                const data = await response.json();
                 setProfile(data);
                 setFollowDetails(data.followDetails);
 
                 if (data.user.profileImgUrl) {
                     const relativePath = data.user.profileImgUrl.split('public')[1];
-                    const imageUrl = baseUrl+ `/public${relativePath}`;
+                    const imageUrl = baseUrl + `/public${relativePath}`;
                     setImgFile(imageUrl);
                 }
 
@@ -44,14 +48,14 @@ const Profile = () => {
                 data.followDetails.followers.forEach(follower => {
                     if (follower.imgUrl) {
                         const followerRelativePath = follower.imgUrl.split('public')[1];
-                        followerImgFiles[follower.id] = baseUrl+ `/public${followerRelativePath}`;
+                        followerImgFiles[follower.id] = baseUrl + `/public${followerRelativePath}`;
                     }
                 });
 
                 data.followDetails.following.forEach(following => {
                     if (following.imgUrl) {
                         const followingRelativePath = following.imgUrl.split('public')[1];
-                        followingImgFiles[following.id] = baseUrl+ `/public${followingRelativePath}`;
+                        followingImgFiles[following.id] = baseUrl + `/public${followingRelativePath}`;
                     }
                 });
 
@@ -61,8 +65,12 @@ const Profile = () => {
                 const exerciseImages = {};
                 const exercisePromises = data.user.exerciseType.map(async (exerciseType) => {
                     try {
-                        const pageResponse = await axios.get(baseUrl+ `/page/${exerciseType}`);
-                        const pageData = pageResponse.data;
+                        const pageResponse = await fetch(baseUrl + `/page/${exerciseType}`);
+                        if (!pageResponse.ok) {
+                            throw new Error(`Failed to fetch page data for exercise type: ${exerciseType}`);
+                        }
+
+                        const pageData = await pageResponse.json();
                         if (pageData && pageData.ImgUrl) {
                             exerciseImages[exerciseType] = pageData.ImgUrl;
                         } else {
@@ -77,7 +85,7 @@ const Profile = () => {
                 setExerciseTypeImages({ ...exerciseImages });
             } catch (error) {
                 console.error('Error fetching profile data: ', error);
-
+                setError('Failed to fetch profile data. Please try again later.');
             } finally {
                 setLoading(false);
             }
@@ -86,23 +94,28 @@ const Profile = () => {
         fetchProfile();
     }, [profileUserId, isFollowing]);
 
-    useEffect (() => {
-        
-    })
     const follow = async () => {
         setIsFollowing(true);
         try {
-            // Send the follow request
-            await axios.put(baseUrl+ `/follow/${profileUserId}`, {}, {
-                withCredentials: true,
+            const response = await fetch(baseUrl + `/follow/${profileUserId}`, {
+                method: 'PUT',
+                // credentials: 'include',
             });
-    
+
+            if (!response.ok) {
+                throw new Error('Failed to follow user');
+            }
+
             // Fetch the updated profile data to refresh the followers
-            const profileResponse = await axios.get(baseUrl+ `/profile/${profileUserId}`, {
-                withCredentials: true,
+            const profileResponse = await fetch(baseUrl + `/profile/${profileUserId}`, {
+                // credentials: 'include',
             });
-    
-            const updatedProfile = profileResponse.data;
+
+            if (!profileResponse.ok) {
+                throw new Error('Failed to fetch updated profile data');
+            }
+
+            const updatedProfile = await profileResponse.json();
             setProfile(updatedProfile); // Update the profile state with the latest data
             setFollowDetails(updatedProfile.followDetails); // Update the follow details state
         } catch (error) {
@@ -117,11 +130,16 @@ const Profile = () => {
     const unfollow = async () => {
         setIsFollowing(true);
         try {
-            const response = await axios.put(baseUrl+ `/unfollow/${profileUserId}`, {}, {
-                withCredentials: true,
+            const response = await fetch(baseUrl + `/unfollow/${profileUserId}`, {
+                method: 'PUT',
+                // credentials: 'include',
             });
 
-            const updatedProfile = response.data;
+            if (!response.ok) {
+                throw new Error('Failed to unfollow user');
+            }
+
+            const updatedProfile = await response.json();
             setProfile(updatedProfile);
             setFollowDetails(updatedProfile.followDetails);
         } catch (error) {
@@ -171,7 +189,7 @@ const Profile = () => {
                                 <h3 className='text-center'>Followers</h3>
                                 {followDetails?.followers?.map(follower => (
                                     <div key={follower.id}>
-                                        <img  className='list-img' src={followImgFiles.followers[follower.id]} alt={follower.name} />
+                                        <img className='list-img' src={followImgFiles.followers[follower.id]} alt={follower.name} />
                                         <Link to={`/profile/${follower.id}`}>{follower.name}</Link>
                                     </div>
                                 ))}
@@ -180,7 +198,7 @@ const Profile = () => {
                                 <h3 className='text-center'>Following</h3>
                                 {followDetails?.following?.map(following => (
                                     <div key={following.id}>
-                                        <img  className='list-img' src={followImgFiles.following[following.id]} alt={following.name} />
+                                        <img className='list-img' src={followImgFiles.following[following.id]} alt={following.name} />
                                         <Link to={`/profile/${following.id}`}>{following.name}</Link>
                                     </div>
                                 ))}
@@ -192,7 +210,7 @@ const Profile = () => {
                             <h3 className='text-center'>Exercise Type</h3>
                             {profile.user.exerciseType?.map(exerciseType => (
                                 <div key={exerciseType} className='preferences-box'>
-                                    <img  className='list-img' src={exerciseTypeImages[exerciseType]} alt={exerciseType} />
+                                    <img className='list-img' src={exerciseTypeImages[exerciseType]} alt={exerciseType} />
                                     <Link to={`/page/${exerciseType.replace(/\s+/g, '')}`}>{exerciseType}</Link>
                                 </div>
                             ))}
