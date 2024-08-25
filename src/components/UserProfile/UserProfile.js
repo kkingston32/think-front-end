@@ -108,7 +108,7 @@ const UserProfile = () => {
         fetch(baseUrl +'/uploadProfilePic/' + userId, {
             method: 'POST',
             body: formData,
-            credentials: 'include'
+            // credentials: 'include'
         })
             .then(response => response.json())
             .then(data => {
