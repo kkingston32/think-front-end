@@ -35,6 +35,8 @@ const UserProfile = () => {
 
         let url = baseUrl + `/userprofile/${userId}`;
 
+        console.log("userID: ", )
+
         fetch(url, fetchOptions)
             .then(response => response.json())
             .then(async data => {
@@ -201,7 +203,7 @@ const UserProfile = () => {
                             <NetworkSuggestions profileUserId={userId} />
                         </div>
                         <div className="feed">
-                            <Feed userId={userId} />
+                            <Feed />
                         </div>
                     </div>
                     <div className="follow-details">

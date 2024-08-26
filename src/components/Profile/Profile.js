@@ -217,7 +217,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className="feed">
-                        <Feed userId={profileUserId} />
+                        <Feed />
                     </div>
                 </div>
             </div>

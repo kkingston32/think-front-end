@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import {useCookies} from 'react-cookie';
 
-const Feed = ({ userId }) => {
-    console.log("Feed userID: ", userId)
+
+const Feed = () => {
+    const [userId, setUserId] = useState(null);
     const [posts, setPosts] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
     const [formData, setFormData] = useState({
         content: '',
         date: new Date(),
         image: null,
-        feedUserId: userId
-
+        feedUserId: userId,
+        posterUserId: cookies.userId
     });
 
+  
     let baseUrl= 'https://think-back-end.azurewebsites.net'
     // let baseUrl = 'http://localhost:3232'
 
@@ -37,11 +41,14 @@ const Feed = ({ userId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
+        console.log("post userId: ",userId)
         data.append('content', formData.content);
         data.append('date', new Date().toISOString());
         data.append('feedUserId', userId)
+
         if (formData.image) {
             data.append('image', formData.image);
+
         }
 
         try {
@@ -60,7 +67,9 @@ const Feed = ({ userId }) => {
     };
 
     useEffect(() => {
+        console.log("feed.js userId: ", userId)
         fetchPosts();
+
     }, [userId]);
 
     const fetchPosts = async () => {
